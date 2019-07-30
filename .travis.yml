@@ -6,38 +6,59 @@ script:
 
 matrix:
   include:
-    - os: osx
-      osx_image: xcode9.3
-      env:
-        - OS_FOLDER=mac
-        - EXE_FILE=tic80.app
+    # - os: osx
+    #   osx_image: xcode9.3
+    #   env:
+    #     - OS_FOLDER=mac
+    #     - EXE_FILE=tic80.app
+
+    # - os: linux
+    #   addons:
+    #     apt:
+    #       packages:
+    #         - libgtk-3-dev
+    #         - libasound2-dev
+    #   env:
+    #     - OS_FOLDER=linux
+    #     - EXE_FILE=tic80
 
     - os: linux
-      addons:
-        apt:
-          packages:
-            - libgtk-3-dev
-            - libasound2-dev
       env:
-        - OS_FOLDER=linux
-        - EXE_FILE=tic80
+        - OS_FOLDER=android
+        - EXE_FILE=tic80code.so
+        - ANDROID_ABI=armeabi-v7a
+        - BUILD_TYPE=Release
+        - ANDROID_SDK_VERSION=23
+      android:
+        components:
+          - tools
+          - platform-tools
+          - android-23
+      install:
+        - echo y | sdkmanager "ndk-bundle"
+        - export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
+        - export PATH=$ANDROID_NDK_HOME:$PATH
 
-    - os: linux
-      env:
-        - OS_FOLDER=wasm
-        - EXE_FILE="tic80.js tic80.wasm"
-      sudo: required
-      services:
-        - docker
-      before_install:
-        - docker run -dit --name emscripten -v $(pwd):/src trzeci/emscripten:sdk-incoming-64bit bash
       script:
-        - cmake -DBUILD_SDL=Off -DBUILD_SOKOL=Off .
-        - make generate_demo_carts
-        - git clean -xdf -e *.tic.dat
-        - git submodule foreach --recursive git clean -xfd        
-        - docker exec -it emscripten emcmake cmake -DBUILD_SOKOL=Off -DBUILD_LIBRETRO=Off -DCMAKE_BUILD_TYPE=MinSizeRel .
-        - docker exec -it emscripten make -j4
+        - cmake -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake -DANDROID_NATIVE_API_LEVEL=$ANDROID_SDK_VERSION -DANDROID_ABI=$ANDROID_ABI -DCMAKE_BUILD_TYPE=$BUILD_TYPE .
+        - make tic80core -j4
+
+    # - os: linux
+    #   env:
+    #     - OS_FOLDER=wasm
+    #     - EXE_FILE="tic80.js tic80.wasm"
+    #   sudo: required
+    #   services:
+    #     - docker
+    #   before_install:
+    #     - docker run -dit --name emscripten -v $(pwd):/src trzeci/emscripten:sdk-incoming-64bit bash
+    #   script:
+    #     - cmake -DBUILD_SDL=Off -DBUILD_SOKOL=Off .
+    #     - make generate_demo_carts
+    #     - git clean -xdf -e *.tic.dat
+    #     - git submodule foreach --recursive git clean -xfd        
+    #     - docker exec -it emscripten emcmake cmake -DBUILD_SOKOL=Off -DBUILD_LIBRETRO=Off -DCMAKE_BUILD_TYPE=MinSizeRel .
+    #     - docker exec -it emscripten make -j4
 
 after_success:
   - BUILDS_SERVER_PATH=${BUILD_SERVER}/files/$TRAVIS_BRANCH/$(date +%Y.%m.%d)/$OS_FOLDER
