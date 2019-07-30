@@ -383,22 +383,27 @@ endif()
 if(BUILD_SDL)
 set(SDLGPU_DIR ${THIRDPARTY_DIR}/sdl-gpu/src)
 set(SDLGPU_SRC
-	${SDLGPU_DIR}/renderer_GLES_1.c
 	${SDLGPU_DIR}/renderer_GLES_2.c
-	${SDLGPU_DIR}/renderer_GLES_3.c
-	${SDLGPU_DIR}/renderer_OpenGL_1.c
-	${SDLGPU_DIR}/renderer_OpenGL_1_BASE.c
-	${SDLGPU_DIR}/renderer_OpenGL_2.c
-	${SDLGPU_DIR}/renderer_OpenGL_3.c
-	${SDLGPU_DIR}/renderer_OpenGL_4.c
 	${SDLGPU_DIR}/SDL_gpu.c
 	${SDLGPU_DIR}/SDL_gpu_matrix.c
 	${SDLGPU_DIR}/SDL_gpu_renderer.c
-	${SDLGPU_DIR}/SDL_gpu_shapes.c
-	${SDLGPU_DIR}/externals/glew/glew.c
 	${SDLGPU_DIR}/externals/stb_image/stb_image.c
 	${SDLGPU_DIR}/externals/stb_image_write/stb_image_write.c
 )
+
+if(NOT ANDROID)
+	list(APPEND SDLGPU_SRC 
+		${SDLGPU_DIR}/renderer_GLES_1.c
+		${SDLGPU_DIR}/renderer_GLES_3.c
+		${SDLGPU_DIR}/renderer_OpenGL_1.c
+		${SDLGPU_DIR}/renderer_OpenGL_1_BASE.c
+		${SDLGPU_DIR}/renderer_OpenGL_2.c
+		${SDLGPU_DIR}/renderer_OpenGL_3.c
+		${SDLGPU_DIR}/renderer_OpenGL_4.c
+		${SDLGPU_DIR}/SDL_gpu_shapes.c	
+		${SDLGPU_DIR}/externals/glew/glew.c
+	)
+endif()
 
 add_library(sdlgpu STATIC ${SDLGPU_SRC})
 
