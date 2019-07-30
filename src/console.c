@@ -2042,7 +2042,7 @@ static void onConsoleExportCommand(Console* console, const char* param)
 			commandDone(console);
 		}
 	}
-	els
+	else
 	{
 		printError(console, "\nhtml export not implemented\n");
 		commandDone(console);
