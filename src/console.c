@@ -2042,9 +2042,10 @@ static void onConsoleExportCommand(Console* console, const char* param)
 			commandDone(console);
 		}
 	}
-	else
+	els
 	{
-		onConsoleExportNativeCommand(console, getExportName(console));
+		printError(console, "\nhtml export not implemented\n");
+		commandDone(console);
 	}
 }
 

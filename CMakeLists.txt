@@ -244,6 +244,11 @@ if(BUILD_SDL AND NOT EMSCRIPTEN)
 	endif()
 
 	set(SDL_SHARED_ENABLED_BY_DEFAULT OFF)
+	
+	if(ANDROID)
+		set(SDL_STATIC_PIC ON)
+	endif()
+
 	add_subdirectory(${THIRDPARTY_DIR}/SDL2-2.0.8)
 
 endif()
