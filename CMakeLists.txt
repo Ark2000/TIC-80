@@ -402,10 +402,8 @@ set(SDLGPU_SRC
 
 add_library(sdlgpu STATIC ${SDLGPU_SRC})
 
-if(EMSCRIPTEN)
+if(EMSCRIPTEN or ANDROID)
 	target_compile_definitions(sdlgpu PRIVATE GLEW_STATIC SDL_GPU_DISABLE_GLES_1 SDL_GPU_DISABLE_GLES_3 SDL_GPU_DISABLE_OPENGL)
-elseif(ANDROID)
-	target_compile_definitions(sdlgpu PRIVATE GLEW_STATIC SDL_GPU_DISABLE_OPENGL)
 else()
 	target_compile_definitions(sdlgpu PRIVATE GLEW_STATIC SDL_GPU_DISABLE_GLES SDL_GPU_DISABLE_OPENGL_3 SDL_GPU_DISABLE_OPENGL_4)
 endif()
@@ -426,9 +424,21 @@ if(LINUX)
 endif()
 
 if(APPLE)
-	FIND_LIBRARY(OPENGL_LIBRARY OpenGL)
+	find_library(OPENGL_LIBRARY OpenGL)
 	target_link_libraries(sdlgpu ${OPENGL_LIBRARY})
 endif()
+
+if(ANDROID)
+	find_library( ANDROID_LOG_LIBRARY log )
+	find_library( ANDROID_GLES2_LIBRARY GLESv2 )
+	find_library( ANDROID_GLES1_LIBRARY GLESv1_CM )
+	target_link_libraries(sdlgpu
+		${ANDROID_LOG_LIBRARY}
+		${ANDROID_GLES2_LIBRARY}
+		${ANDROID_GLES1_LIBRARY}
+	)
+endif()
+
 endif()
 
 ################################
