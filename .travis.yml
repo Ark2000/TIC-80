@@ -23,6 +23,7 @@ matrix:
     #     - EXE_FILE=tic80
 
     - os: linux
+      language: android
       env:
         - OS_FOLDER=android
         - EXE_FILE=tic80code.so
