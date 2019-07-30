@@ -243,8 +243,10 @@ if(BUILD_SDL AND NOT EMSCRIPTEN)
 		set(HAVE_LIBC TRUE)
 	endif()
 
+	set(SDL_SHARED_ENABLED_BY_DEFAULT OFF)
+
 	if(ANDROID)
-		set(SDL_STATIC_PIC ON CACHE BOOL)
+		set(SDL_STATIC_PIC ON CACHE BOOL "Static version of the library should be built with Position Independent Code")
 	endif()
 
 	add_subdirectory(${THIRDPARTY_DIR}/SDL2-2.0.8)
