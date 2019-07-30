@@ -78,6 +78,11 @@
 #	define __TIC_LINUX__   1
 #endif
 
+#if defined(ANDROID) || defined(__ANDROID__)
+#	undef __TIC_ANDROID__
+#	define __TIC_ANDROID__   1
+#endif
+
 #ifndef TIC80_API
 #	if defined(TIC80_SHARED)
 #		if defined(__TIC_WINDOWS__) || defined(__TIC_WINRT__)
