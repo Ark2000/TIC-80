@@ -243,7 +243,7 @@ endif()
 ################################
 
 set(EXAMPLE_DIR ${CMAKE_SOURCE_DIR}/examples)
-if(BUILD_SDL AND NOT EMSCRIPTEN)
+if(BUILD_SDL AND NOT EMSCRIPTEN AND NOT ANDROID)
 	set(EXAMPLE_SRC 
 		${EXAMPLE_DIR}/sdl/main.c
 	)
@@ -444,6 +444,11 @@ if(ANDROID)
 	)
 endif()
 
+if(NOT EMSCRIPTEN)
+	add_dependencies(sdlgpu SDL2-static)
+	target_link_libraries(sdlgpu SDL2-static)
+endif()
+
 endif()
 
 ################################
@@ -491,7 +496,7 @@ add_library(zlib STATIC ${ZLIB_SRC})
 # bin2txt
 ################################
 
-if(NOT EMSCRIPTEN AND BUILD_DEMO_CARTS)
+if(NOT EMSCRIPTEN AND NOT ANDROID AND BUILD_DEMO_CARTS)
 	set(BIN2TXT_DIR ${CMAKE_SOURCE_DIR}/tools/bin2txt)
 	set(BIN2TXT_SRC 
 		${BIN2TXT_DIR}/bin2txt.c
@@ -633,10 +638,10 @@ foreach(TIC80_OUTPUT ${TIC80_OUTPUTS})
 	endif()
 
 	if(EMSCRIPTEN)
-		set_target_properties(${TIC80_OUTPUT} PROPERTIES LINK_FLAGS "-s WASM=1 -s USE_SDL=2 -s TOTAL_MEMORY=67108864 --pre-js build/html/prejs.js")
-	else()
-		add_dependencies(${TIC80_OUTPUT} SDL2main SDL2-static)
-		target_link_libraries(${TIC80_OUTPUT} SDL2-static SDL2main)
+		set_target_properties(${TIC80_OUTPUT} PROPERTIES LINK_FLAGS "-s WASM=1 -s USE_SDL=2 -s TOTAL_MEMORY=67108864 --pre-js build/html/prejs.js")		
+	elseif(NOT ANDROID)
+		add_dependencies(${TIC80_OUTPUT} SDL2main)
+		target_link_libraries(${TIC80_OUTPUT} SDL2main)
 	endif()
 
 	add_dependencies(${TIC80_OUTPUT} ${TIC80_OUTPUT}lib sdlnet sdlgpu)
