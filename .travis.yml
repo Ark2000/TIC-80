@@ -26,7 +26,7 @@ matrix:
       language: android
       env:
         - OS_FOLDER=android
-        - EXE_FILE=tic80core.so
+        - EXE_FILE=tic80.so
         - ANDROID_ABI=armeabi-v7a
         - BUILD_TYPE=Release
         - ANDROID_SDK_VERSION=23
@@ -64,7 +64,7 @@ matrix:
     #     - make generate_demo_carts
     #     - git clean -xdf -e *.tic.dat
     #     - git submodule foreach --recursive git clean -xfd        
-    #     - docker exec -it emscripten emcmake cmake -DBUILD_SOKOL=Off -DBUILD_LIBRETRO=Off -DCMAKE_BUILD_TYPE=MinSizeRel .
+    #     - docker exec -it emscripten emcmake cmake -DCMAKE_BUILD_TYPE=MinSizeRel .
     #     - docker exec -it emscripten make -j4
 
 after_success:

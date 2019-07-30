@@ -3,10 +3,20 @@ cmake_minimum_required(VERSION 3.3)
 project(TIC-80 C CXX)
 message("Building for target : ${CMAKE_SYSTEM_NAME}")
 
-option(BUILD_SDL "SDL Enabled" TRUE)
-option(BUILD_SOKOL "Sokol Enabled" TRUE)
-option(BUILD_LIBRETRO "libretro Enabled" TRUE)
-option(BUILD_DEMO_CARTS "Demo Carts Enabled" TRUE)
+if(ANDROID OR EMSCRIPTEN)
+	set(BUILD_SOKOL_DEFAULT OFF)
+	set(BUILD_LIBRETRO_DEFAULT OFF)
+	set(BUILD_DEMO_CARTS_DEFAULT OFF)
+else()
+	set(BUILD_SOKOL_DEFAULT ON)
+	set(BUILD_LIBRETRO_DEFAULT ON)
+	set(BUILD_DEMO_CARTS_DEFAULT ON)
+endif()
+
+option(BUILD_SDL "SDL Enabled" ON)
+option(BUILD_SOKOL "Sokol Enabled" ${BUILD_SOKOL_DEFAULT})
+option(BUILD_LIBRETRO "libretro Enabled" ${BUILD_LIBRETRO_DEFAULT})
+option(BUILD_DEMO_CARTS "Demo Carts Enabled" ${BUILD_DEMO_CARTS_DEFAULT})
 option(BUILD_PRO "Build PRO version" FALSE)
 
 if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN AND NOT ANDROID)
@@ -279,7 +289,7 @@ else()
 	set(SOKOL_LIB_SRC ${SOKOL_LIB_SRC} ${CMAKE_SOURCE_DIR}/src/system/sokol_impl.c)
 endif()
 
-add_library(sokol ${SOKOL_LIB_SRC})
+add_library(sokol STATIC ${SOKOL_LIB_SRC})
 
 if(APPLE)
 	target_compile_definitions(sokol PRIVATE SOKOL_METAL)
@@ -496,7 +506,7 @@ add_library(zlib STATIC ${ZLIB_SRC})
 # bin2txt
 ################################
 
-if(NOT EMSCRIPTEN AND NOT ANDROID AND BUILD_DEMO_CARTS)
+if(BUILD_DEMO_CARTS)
 	set(BIN2TXT_DIR ${CMAKE_SOURCE_DIR}/tools/bin2txt)
 	set(BIN2TXT_SRC 
 		${BIN2TXT_DIR}/bin2txt.c
@@ -622,6 +632,8 @@ foreach(TIC80_OUTPUT ${TIC80_OUTPUTS})
 		add_executable(${TIC80_OUTPUT} MACOSX_BUNDLE ${TIC80_SRC} build/macosx/tic80.icns)
 		set_source_files_properties(build/macosx/tic80.icns PROPERTIES MACOSX_PACKAGE_LOCATION RESOURCES)
 		set_target_properties(${TIC80_OUTPUT} PROPERTIES MACOSX_BUNDLE_INFO_PLIST build/macosx/${TIC80_OUTPUT}.plist)
+	elseif(ANDROID)
+		add_library(${TIC80_OUTPUT} SHARED ${TIC80_SRC})
 	else()
 		add_executable(${TIC80_OUTPUT} ${TIC80_SRC})
 	endif()
