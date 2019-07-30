@@ -26,7 +26,7 @@ matrix:
       language: android
       env:
         - OS_FOLDER=android
-        - EXE_FILE=tic80code.so
+        - EXE_FILE=tic80core.so
         - ANDROID_ABI=armeabi-v7a
         - BUILD_TYPE=Release
         - ANDROID_SDK_VERSION=23
@@ -37,6 +37,8 @@ matrix:
           - android-23
       install:
         - echo y | sdkmanager "ndk-bundle"
+        - wget "https://cmake.org/files/v3.12/cmake-3.12.0-Linux-x86_64.sh"
+        - sudo sh cmake-3.12.0-Linux-x86_64.sh --skip-license --prefix=/usr
         - export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
         - export PATH=$ANDROID_NDK_HOME:$PATH
 
