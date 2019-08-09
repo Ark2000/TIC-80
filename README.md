@@ -4,73 +4,70 @@
 ![TIC-80](https://tic.computer/img/logo64.png)
 **TIC-80微型电脑** - [https://tic.computer/](https://tic.computer/)
 
-# About
-TIC-80 is a **FREE** and **OPEN SOURCE** fantasy computer for making, playing and sharing tiny games.
+# 关于
+TIC-80是一个**免费开源**的梦幻电脑，用来制作，运行以及分享小游戏。
 
-With TIC-80 you get built-in tools for development: code, sprites, maps, sound editors and the command line, which is enough to create a mini retro game.
+使用TIC-80，您可以获得用于开发的内置工具：包括代码，精灵，地图，音效编辑器和命令行，这足以创建迷你复古游戏。
 
-Games are packaged into a cartridge file, which can be easily distributed. TIC-80 works on all popular platforms. This means your cartridge can be played in any device.
+游戏被打包成一个卡带文件，可以很容易地分发。TIC-80适用于所有流行的平台。这意味着你的卡带可以在任何设备上运行。
 
-To make a retro styled game, the whole process of creation and execution takes place under some technical limitations: 240x136 pixel display, 16 color palette, 256 8x8 color sprites, 4 channel sound, etc.
+为了制作复古风格的游戏，创作和运行的整个过程将在一些技术限制下进行：240x136像素显示，16色调色板，256种8x8色彩精灵，4声道音乐等。
 
 ![TIC-80](https://user-images.githubusercontent.com/1101448/29687467-3ddc432e-8925-11e7-8156-5cec3700cc04.gif)
 
-### Features
-- Multiple programming languages: [Lua](https://www.lua.org),
+### 特性
+- 支持多种编程语言: [Lua](https://www.lua.org),
   [Moonscript](https://moonscript.org),
   [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript),
-  [Wren](http://wren.io/), and [Fennel](https://fennel-lang.org).
-- Games can have mouse and keyboard as input
-- Games can have up to 4 controllers as input (with up to 8 buttons, each)
-- Built-in editors: for code, sprites, world maps, sound effects and music
-- An aditional memory bank: load different assets from your cartridge while your game is executing
+  [Wren](http://wren.io/)，以及 [Fennel](https://fennel-lang.org).
+- 可以使用键盘和鼠标作为输入
+- 游戏最多可以有4个控制器作为输入（每个控制器有8个按钮）
+- 内置编辑器：用于代码、精灵、世界地图、音效和音乐
+- 一个额外的存储区域：可以在游戏运行时从你的卡带中加载不同的资源
 
-# Binary Downloads
-You can download compiled versions for the major operating systems directly from our [releases page](https://github.com/nesbox/TIC-80/releases).
+# 二进制下载
+你可以直接从我们的[发布页](https://github.com/nesbox/TIC-80/releases)上下载主流操作系统的编译版本。
 
-# Pro Version
-To help support TIC-80 development, we have a [PRO Version](https://nesbox.itch.io/tic).
-This version has a few additional features and binaries can only be downloaded on [our Itch.io page](https://nesbox.itch.io/tic).
+# 高级版
+为了支持TIC-80的开发，我们提供了[高级版](https://nesbox.itch.io/tic)。这个版本有一些额外的特性，它的二进制文件只能在我们的[Itch.io](https://nesbox.itch.io/tic)页面上下载
 
-For users who can't spend the money, we made it easy to build the pro version from the source code.
+对于那些不能花钱的用户，我们做了一些工作，使得从源代码编译高级版十分容易。
 
-### Pro features
+### 高级版特性
 
-- Save/load cartridges in text format, and create your game in any editor you want, also useful for version control systems.
-- Even more memory banks: instead of having only 1 memory bank you have 8.
-- Export your game without editors, and then publish it to app stores (WIP).
+- 以文本格式保存\加载卡带, 在您想要的任何编辑器中编写游戏，对版本控制系统也很有用。
+- 更多的存储区域: 不仅仅是1个，而是8个。
+- 导出不带编辑器的游戏，然后发布到应用商店（待实现）
 
-# Community
-You can play and share games, tools and music at [tic.computer](https://tic.computer/play).
+# 社区
+你可以在[tic.computer](https://tic.computer/play)里运行并分享游戏，工具以及音乐。
 
-The community also hangs out and discusses on [Discord chat](https://discord.gg/DkD73dP).
+社区也经常在[Discord chat](https://discord.gg/DkD73dP)上闲聊。
 
-# Contributing
-You are can contribute by issuing a bug or requesting a new feature on our [issues page](https://github.com/nesbox/tic.computer/issues).
-Keep in mind when engaging on a discussion to follow our [Code of Conduct](https://github.com/nesbox/TIC-80/blob/master/CODE_OF_CONDUCT.md).
+# 贡献
+你可以通过在我们的[issues page](https://github.com/nesbox/tic.computer/issues)上提出bug或请求一个新特性来做出贡献。进行讨论时，请牢记我们的[行为准则](https://github.com/nesbox/TIC-80/blob/master/CODE_OF_CONDUCT.md)。
 
-You can also contribute by reviewing or improving our [wiki](https://github.com/nesbox/tic.computer/wiki).
-The [wiki](https://github.com/nesbox/tic.computer/wiki) holds TIC-80 documentation, code snippets and game development tutorials.
+你也可以通过审阅或改进我们的[wiki](https://github.com/nesbox/tic.computer/wiki)来做出贡献。[wiki](https://github.com/nesbox/tic.computer/wiki)包含了TIC-80的文档，代码片段和游戏开发教程。
 
-# Build instructions
+# 构建说明
 
 ## Windows
-### with Visual Studio 2017
-- install `Visual Studio 2017`
-- install `git`
-- run following commands in `cmd`
+### Visual Studio 2017
+- 安装 `Visual Studio 2017`
+- 安装 `git`
+- 在`cmd`中运行以下指令
 ```
 git clone --recursive https://github.com/nesbox/TIC-80
 cmake -G "Visual Studio 15 2017 Win64"
 ```
-- open `TIC-80.sln` and build
-- enjoy :)
+- 打开 `TIC-80.sln` 然后构建
+- 完成！ :)
 
-### with MinGW
-- install `mingw-w64` (http://mingw-w64.org) and add `.../mingw/bin` path to the *System Variables Path*
-- install `git`
-- install `cmake` (https://cmake.org)
-- run following commands in `terminal`
+### MinGW
+- 安装 `mingw-w64` (http://mingw-w64.org)然后添加 `.../mingw/bin`路径至*系统变量路径*
+- 安装 `git`
+- 安装 `cmake` (https://cmake.org)
+- 在`terminal`中运行以下指令
 ```
 git clone --recursive https://github.com/nesbox/TIC-80
 cd TIC-80
@@ -80,14 +77,14 @@ mingw32-make -j4
 
 ## Linux 
 ### Ubuntu 14.04
-run the following commands in the Terminal
+在控制台中运行以下指令
 ```
 sudo apt-get install git cmake libgtk-3-dev libgles1-mesa-dev libglu-dev -y
 git clone --recursive https://github.com/nesbox/TIC-80 && cd TIC-80
 cmake . && make -j4
 ```
 
-to install the latest CMake:
+安装最新版本的cmake：
 ```
 wget "https://cmake.org/files/v3.12/cmake-3.12.0-Linux-x86_64.sh"
 sudo sh cmake-3.12.0-Linux-x86_64.sh --skip-license --prefix=/usr
@@ -95,7 +92,7 @@ sudo sh cmake-3.12.0-Linux-x86_64.sh --skip-license --prefix=/usr
 
 ### Ubuntu 18.04
 
-run the following commands in the Terminal
+在控制台中运行以下指令
 ```
 sudo apt-get install git cmake libgtk-3-dev libglvnd-dev libglu1-mesa-dev freeglut3-dev -y
 git clone --recursive https://github.com/nesbox/TIC-80 && cd TIC-80
@@ -103,9 +100,9 @@ cmake . && make -j4
 ```
 
 ## Mac
-install `Command Line Tools for Xcode` and `brew` package manager
+安装 `Command Line Tools for Xcode` 和 `brew` 包管理器
 
-run the following commands in the Terminal
+在控制台中运行以下指令
 ```
 brew install git cmake
 git clone --recursive https://github.com/nesbox/TIC-80
@@ -114,6 +111,6 @@ cmake . && make -j4
 ```
 
 ## iOS / tvOS
-You can find iOS/tvOS version here 
+你可以在这里找到ios/tvOS的版本
 - 0.60.3: https://github.com/brunophilipe/TIC-80
 - 0.45.0: https://github.com/CliffsDover/TIC-80
